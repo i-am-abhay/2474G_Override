@@ -7,7 +7,7 @@
 
 ## About
 
-2474G Gladiators is a competitive VEX Robotics team within 2474 Walnut Grove Robotics. We design, build, program, and continuously improve robots for competition while developing our engineering, problem-solving, and leadership skills.
+2474G Gladiators is a competitive Robotics team within 2474 Walnut Grove Robotics. We design, build, program, and continuously improve robots for competition while developing our engineering, problem-solving, and leadership skills.
 
 This repository contains the software, documentation, and resources developed by Team 2474G throughout the season.
 
