@@ -72,7 +72,7 @@ void usercontrol(void) {
 
     int forwardpower = ControllerMain.Axis3.position(); // Looks at the left joystick, up and down to see how fast to move
     int turnpower = ControllerMain.Axis1.position(); // Looks at the right joystick, left and right to see how fast to turn
-    int sidepower = ControllerMain.Axis4.position(); // Looks at the left joystick, left and right to see how fast to move left and right.
+    int sidepower = ControllerMain.Axis4.position(); // Looks at the left joystick, left and right to see how fast to strafe.
     double robotpitch = InertialSensor.pitch(degrees); // Measures how much the robot is actually tilting and stores it in the variable robotpitch
 
 // This is useful because it helps absorb the impact rather than just tipping over when struck. For example, if someone pushes you over, standing still will make
