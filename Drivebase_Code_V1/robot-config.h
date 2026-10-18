@@ -8,6 +8,7 @@ extern motor FrontRight;
 extern motor BackRight;
 extern motor Drivebase_Middle;
 extern inertial InertialSensor;
+extern vex::controller Controller1;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  *
