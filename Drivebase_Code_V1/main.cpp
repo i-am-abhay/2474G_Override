@@ -11,6 +11,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+vex::controller Controller1 = vex::controller(vex::controllerType::primary);
 
 using namespace vex;
 
@@ -94,6 +95,19 @@ void usercontrol(void) {
 
     wait(20, msec); 
   }
+
+    void clawOpen(){
+      ClawMotor.setVelocity(100,percent);
+      ClawMotor.spinToPosition(90,degrees,true);
+    }
+
+    void clawClose(){
+      ClawMotor.setVelocity(100,percent);
+          // Open the Claw and hold the position for two seconds
+          ClawMotor.spinToPosition(0,degrees,true);
+
+          
+    }
 }
 
 //
@@ -104,6 +118,17 @@ int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
+  // Claw calibration at start of program
+  ClawMotor.setVelocity(30, percent);
+  ClawMotor.spin(reverse);
+  wait(2, seconds);
+  ClawMotor.setPosition(0, degrees);
+  
+  // Claw open & close 
+  Controller1.ButtonR1.pressed(clawClose);
+  Controller1.ButtonR2.pressed(clawOpen);
+
+  
   // Run the pre-autonomous function.
   pre_auton();
 
