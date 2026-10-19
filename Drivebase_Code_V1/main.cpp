@@ -11,7 +11,6 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
-vex::controller Controller1 = vex::controller(vex::controllerType::primary);
 
 using namespace vex;
 
@@ -65,50 +64,64 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
-
   const int tilt_max = 5; // the angle of tilt that the robot can be at before it tries to untilt itself.
   const int untiltspeed = 60; // Speed the robot untilts itself (60%)
-// THIS IS MANUAL CONTROL
+  // THIS IS MANUAL CONTROL
   while (1) {
-
-    int forwardpower = ControllerMain.Axis3.position(); // Looks at the left joystick, up and down to see how fast to move
-    int turnpower = ControllerMain.Axis1.position(); // Looks at the right joystick, left and right to see how fast to turn
-    int sidepower = ControllerMain.Axis4.position(); // Looks at the left joystick, left and right to see how fast to strafe.
+    int ypower = ControllerMain.Axis3.position(); // Looks at the left joystick, up and down to see how fast to move forward or backward
+    int xpower = ControllerMain.Axis1.position(); // Looks at the right joystick, left and right to see how fast to turn left or right
     double robotpitch = InertialSensor.pitch(degrees); // Measures how much the robot is actually tilting and stores it in the variable robotpitch
 
-// This is useful because it helps absorb the impact rather than just tipping over when struck. For example, if someone pushes you over, standing still will make
-// you loose balance and fall, but if you took a step back to counteract the force, then you are less likely to fall. Hence, the same logic.
+    // This is useful because it helps absorb the impact rather than just tipping over when struck. For example, if someone pushes you over, standing still will make
+    // you loose balance and fall, but if you took a step back to counteract the force, then you are less likely to fall. Hence, the same logic.
     if (robotpitch > tilt_max) { // Checks if the robot is tilting forward too much
-      forwardpower = untiltspeed; // If it is tilting forward too much, then it sets the forwardpower to the untiltspeed to correct itself and counteract by moving forwards.
+      ypower = untiltspeed; // If it is tilting forward too much, then it sets the forwardpower to the untiltspeed to correct itself and counteract by moving forwards.
     }
     else if (robotpitch < -tilt_max) { // Checks if the robot is tilting backward too much
-      forwardpower = -untiltspeed; // If it is tilting backward too much, then it sets the forwardpower to the negative untiltspeed to correct itself and counteract by moving backwards.
+      ypower = -untiltspeed; // If it is tilting backward too much, then it sets the forwardpower to the negative untiltspeed to correct itself and counteract by moving backwards.
     }
 
-    int leftMotorSpeed = forwardpower + turnpower;  // Adds turnspeed to forward speed so it speeds up when turning right
-    int rightMotorSpeed = forwardpower - turnpower; // Subtracts turnspeed from forward speed so it slows down when turning right
+    int leftMotorSpeed = ypower + xpower;
+    int rightMotorSpeed = ypower - xpower;
+
+    if (xpower < 0) {
+      leftMotorSpeed = 0;
+    } else if (xpower > 0) {
+      rightMotorSpeed = 0;
+    }
+
+    if (leftMotorSpeed > 100) {
+      leftMotorSpeed = 100;
+    } else if (leftMotorSpeed < -100) {
+      leftMotorSpeed = -100;
+    }
+
+    if (rightMotorSpeed > 100) {
+      rightMotorSpeed = 100;
+    } else if (rightMotorSpeed < -100) {
+      rightMotorSpeed = -100;
+    }
+
     FrontLeft.spin(reverse, leftMotorSpeed, percent); //  Left motors spins in reverse to make the robot move forward
     BackLeft.spin(reverse, leftMotorSpeed, percent); // Left motors spins in reverse to make the robot move forward
     FrontRight.spin(forward, rightMotorSpeed, percent); // Right motors spins forward to make the robot move forward
     BackRight.spin(forward, rightMotorSpeed, percent); // Right motors spins forward to make the robot move forward
-    Drivebase_Middle.spin(forward, sidepower, percent); // Middle motor spins forward to make the robot move sideways
 
-    wait(20, msec); 
+    wait(20, msec);
   }
-
-    void clawOpen(){
-      ClawMotor.setVelocity(100,percent);
-      ClawMotor.spinToPosition(90,degrees,true);
-    }
-
-    void clawClose(){
-      ClawMotor.setVelocity(100,percent);
-          // Open the Claw and hold the position for two seconds
-          ClawMotor.spinToPosition(0,degrees,true);
-
-          
-    }
 }
+
+void clawOpen() {
+  ClawMotor.setVelocity(100, percent);
+  ClawMotor.spinToPosition(90, degrees, true);
+}
+
+void clawClose() {
+  ClawMotor.setVelocity(100, percent);
+  // Open the Claw and hold the position for two seconds
+  ClawMotor.spinToPosition(0, degrees, true);
+}
+
 
 //
 // Main will set up the competition functions and callbacks.
