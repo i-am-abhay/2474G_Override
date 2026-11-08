@@ -16,12 +16,10 @@ This repository contains the software, documentation, and resources developed by
 * Apply engineering principles to real-world challenges
 * Work together to compete at the highest level possible
 
-## Technologies
-
-* VEX V5
-* C++
+## In This Repository
+* Driver Control
+* Notebook
 * Autonomous Programming
-* Motion Control
 * CAD & Engineering Design
 
 ## Team Philosophy
