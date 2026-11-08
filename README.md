@@ -1,9 +1,6 @@
 # 2474G Gladiators
 
- 2474G • 2474 Walnut Grove Robotics
-
-
----
+<img width="1195" height="1316" alt="671a9014-241b-4c0d-8baa-fd4354ff9a0e" src="https://github.com/user-attachments/assets/89910ee1-6c2c-4860-a728-507948ab46ee" />
 
 ## About
 
