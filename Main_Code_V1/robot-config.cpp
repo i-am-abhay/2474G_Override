@@ -40,8 +40,8 @@ void vexcodeInit(void) {
   // Set the DR4B lift motors to hold their position when L1 or L2 are released
   LiftLeft.setBrake(hold);
   LiftRight.setBrake(hold);
-  LiftLeft.setVelocity(100, percent);
-  LiftRight.setVelocity(100, percent);
+  LiftLeft.setVelocity(50, percent);
+  LiftRight.setVelocity(50, percent);
   LiftLeft.setPosition(0, degrees);
   LiftRight.setPosition(0, degrees);
 
