@@ -14,7 +14,7 @@ using namespace vex;
 #define BACK_RIGHT_PORT      PORT9
 
 // DR4B lift motor ports (12T:84T 7:1 gear ratio, 200 RPM green cartridges)
-#define LIFT_LEFT_PORT       PORT4
+#define LIFT_LEFT_PORT       PORT15
 #define LIFT_RIGHT_PORT      PORT3
 
 // Rear toggle motor ports (mounted on the back of the robot)
